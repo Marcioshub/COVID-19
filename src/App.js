@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import axois from "axios";
+import moment from "moment";
 
 // Material ui
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -37,7 +38,7 @@ function App() {
   const [filtered, setFiltered] = useState("");
 
   async function getData() {
-    const output = await axois.get("https://corona.lmao.ninja/states");
+    const output = await axois.get("https://covidtracking.com/api/states");
     setStates(output.data);
   }
 
@@ -51,7 +52,7 @@ function App() {
       <Container maxWidth="md">
         <TextField
           id="filled-basic"
-          label="Enter State"
+          label="Enter State Code (example: New York is NY)"
           variant="filled"
           className={classes.input}
           onChange={e => setFiltered(e.target.value.toLowerCase())}
@@ -71,31 +72,28 @@ function App() {
                       State: {s.state}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                      Cases: {s.cases}
+                      Cases: {s.positive}
                     </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                      Active: {s.active}
+
+                    <Typography variant="body1" component="p">
+                      Hospitalized: {s.hospitalized || 0}
                     </Typography>
+
                     <Typography
-                      variant="h6"
-                      className={classes.pos}
+                      variant="body1"
+                      component="p"
+                      className={classes.textColor}
+                      gutterBottom
+                    >
+                      Deaths: {s.death}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      component="p"
                       color="textSecondary"
                     >
-                      Today's Cases: {s.todayCases}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      className={classes.textColor}
-                    >
-                      Deaths: {s.deaths}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      className={classes.textColor}
-                    >
-                      Today's Deaths: {s.todayDeaths}
+                      {moment(s.dateModified).format("MMMM Do YYYY, h:mm:ss a")}
                     </Typography>
                   </CardContent>
                 </Card>
