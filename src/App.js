@@ -77,7 +77,7 @@ function App() {
           variant="filled"
           className={classes.input}
           onChange={e => setFiltered(e.target.value.toLowerCase())}
-          helperText="Example: New York code is NY"
+          helperText="Example: New York's state code is NY"
         />
         <br />
         {states !== null
