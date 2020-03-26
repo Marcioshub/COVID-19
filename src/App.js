@@ -95,7 +95,14 @@ function App() {
                         {getState(s.state)}
                       </Typography>
                       <Typography variant="h6" color="textSecondary">
-                        Cases: {s.positive || 0}
+                        Positive: {s.positive || 0}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        Negative: {s.negative || 0}
                       </Typography>
                       <Typography
                         variant="body1"
@@ -108,6 +115,7 @@ function App() {
                         variant="body1"
                         component="p"
                         className={classes.redColor}
+                        gutterBottom
                       >
                         Deaths: {s.death || 0}
                       </Typography>
