@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import axois from "axios";
 import moment from "moment";
+import statesJson from "./states_hash.json";
 
 // Material ui
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -53,6 +54,16 @@ function App() {
     getData();
   }, []);
 
+  function getState(code) {
+    for (let i = 0; i < statesJson.length; i++) {
+      if (statesJson[i].abbreviation === code) {
+        return statesJson[i].name;
+      }
+    }
+
+    return "unknown state";
+  }
+
   return (
     <div className="App">
       <CssBaseline />
@@ -81,12 +92,11 @@ function App() {
                         variant="h5"
                         gutterBottom
                       >
-                        State: {s.state}
+                        {getState(s.state)}
                       </Typography>
                       <Typography variant="h6" color="textSecondary">
                         Cases: {s.positive || 0}
                       </Typography>
-
                       <Typography
                         variant="body1"
                         component="p"
@@ -94,7 +104,6 @@ function App() {
                       >
                         Hospitalized: {s.hospitalized || 0}
                       </Typography>
-
                       <Typography
                         variant="body1"
                         component="p"
@@ -102,7 +111,6 @@ function App() {
                       >
                         Deaths: {s.death || 0}
                       </Typography>
-
                       <Typography
                         variant="body2"
                         component="p"
