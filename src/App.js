@@ -14,8 +14,11 @@ import TextField from "@material-ui/core/TextField";
 import Grow from "@material-ui/core/Grow";
 
 const useStyles = makeStyles(theme => ({
+  heading: {
+    marginTop: theme.spacing(5)
+  },
   input: {
-    width: "100%",
+    minWidth: "65%",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5)
   },
@@ -54,6 +57,9 @@ function App() {
     <div className="App">
       <CssBaseline />
       <Container maxWidth="md">
+        <Typography variant="h2" className={classes.heading}>
+          COVID-19 cases by State
+        </Typography>
         <TextField
           id="filled-basic"
           label="Enter State Code"
@@ -62,7 +68,7 @@ function App() {
           onChange={e => setFiltered(e.target.value.toLowerCase())}
           helperText="Example: New York code is NY"
         />
-
+        <br />
         {states !== null
           ? states
               .filter(f => f.state.toLowerCase().includes(filtered))
